@@ -6,6 +6,8 @@
 
 [Stateful React Components](#stateful-react-components)
 
+[useState Functional Argument](#usestate-functional-argument)
+
 # Conditional Rendering
 
 **App.jsx**
