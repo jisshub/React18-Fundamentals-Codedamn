@@ -10,6 +10,8 @@
 
 [Random Quote Generator](#random-quote-generator)
 
+[useEffect Hook](#useeffect-hook)
+
 # Conditional Rendering
 
 **App.jsx**
