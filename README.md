@@ -14,6 +14,7 @@
 
 [Todo List App](#todo-list-app)
 
+[Accordion Project SetUp](#accordion-project-setup)
 
 # Conditional Rendering
 
@@ -466,3 +467,19 @@ function App() {
 
 export default App;
 ```
+
+# Accordion Project SetUp
+
+## 1. Creating UI for first question
+
+```txt
+1. There should be a main tag on the page.
+2. There should be a div.container tag inside the main element
+3. There should be a section.info tag inside the div.container
+4. "FAQ" heading in h3 should exist in the div.container element
+```
+
+
+
+
+
