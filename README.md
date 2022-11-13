@@ -394,3 +394,75 @@ function App() {
 
 export default App;
 ```
+
+## 3. Delete Item
+
+**App.jsx**
+
+```jsx
+import React, { useState } from "react";
+import "./App.css";
+
+// set a global id 
+let globalID = 0
+
+function App() {
+     const [todos, setTodos] = useState([])
+     const [task, setTask] = useState('')
+     function addTodos(event) {
+        event.preventDefault()
+         setTodos(oldTodoValues => {
+            setTask('')
+
+            // return an array of objects with todo and an id.
+            return [...oldTodoValues, {todo: task, id: globalID++}]
+         })
+         console.log(todos)
+     }
+
+     function deleteTodo(id) {
+        // udpate the todos array by filtering out the todo we deleted.
+        setTodos(prevTodos => 
+            prevTodos.filter((todo) => todo.id !== id)
+        )
+     }
+
+  return (
+    <div className="App">
+        <h1>Todo App</h1>
+        <form onSubmit={addTodos}>
+            <input 
+                type="text" 
+                value={task} 
+                onChange={event => setTask(event.target.value)}    
+            />
+            <button
+                type='submit'
+                >
+                Create Todos
+            </button>
+        </form>
+        <ul>
+            {
+                todos.map((item, index) => 
+                    {
+                        return (
+                            <div key={item.id}>
+                                <li>{item.todo}</li>                      
+                                // pass todo id as aargument to deletTodo() function
+                                <button 
+                                    onClick={()=> deleteTodo(item.id)}>
+                                    Delete
+                                </button>
+                            </div>
+                        )
+                    }
+                )
+            }
+        </ul>
+    </div>
+  );
+}
+
+export default App;
+```
