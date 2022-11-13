@@ -12,6 +12,9 @@
 
 [useEffect Hook](#useeffect-hook)
 
+[Todo List App](#todo-list-app)
+
+
 # Conditional Rendering
 
 **App.jsx**
@@ -229,3 +232,165 @@ If we have a todo list app, we want to save the order of todos on the backend. I
 
 # Todo List App
 
+## 1. Building a Todo List App
+
+**App.jsx**
+
+```jsx
+import React, { useState } from "react";
+import "./App.css";
+
+function App() {
+     const [todos, setTodos] = useState(['jissmon', 'jomon'])
+
+    //  usestate to get current todo
+     const [task, setTask] = useState('')
+     function addTodos() {
+      // since current todos depends on previous todo values, we append current input with previous todo values. use spread operator
+         setTodos(oldTodoValues => {
+             return [...oldTodoValues, task]
+         })
+     }
+  return (
+    <div className="App">
+        <h1>Todo App</h1>
+        <input 
+            type="text" 
+            value={task} 
+            // onchange event to get current input value
+            onChange={event => setTask(event.target.value)}    
+        />
+        <button onClick={addTodos}>Create Todos</button>
+        <ul>
+            {
+                todos.map((todo) => 
+                    {
+                        return (
+                            <li>{todo}</li>
+                        )
+                    }
+                )
+            }
+        </ul>
+    </div>
+  );
+}
+
+export default App;
+```
+
+## 2. Running Function on Enter Key
+
+### Clear Input Field on Enter
+
+- Append null or empty string to *setTask()* above the *setTodos()* state function.
+
+- We can provide *setTask()* to empty string under *setTodos()* it also work, but since javascript is asynchronous it may might not clear the field as we xpect.
+
+```jsx
+function addTodos() {
+        setTask('')
+        setTodos(oldTodoValues => {
+            return [...oldTodoValues, task]
+        })
+    }
+```
+### Add todo on pressing Enter key on Input field.
+
+Notes:
+
+1. Button element should be type `submit`, else form
+does not know what should happen when user clicks on input field.
+
+```jsx
+ <button
+      type='submit'
+      >
+      Create Todos
+  </button>
+```
+
+### Page Reloads on clicking Enter key
+
+Because it is the default behavious of page. To resolve this,
+
+1. Add *onSubmit* event listener to form element.
+2. Remove *onClick* event listener from button element.
+
+```jsx
+<form onSubmit={addTodos}>
+  <input 
+      type="text" 
+      value={task} 
+      onChange={event => setTask(event.target.value)}    
+  />
+  <button
+      type='submit'
+      >
+      Create Todos
+  </button>
+</form>
+```
+
+3. Set *event.preventDefault()* method to the function that create the todos.
+
+```jsx
+function addTodos(event) {
+  event.preventDefault()
+  setTask('')
+    setTodos(oldTodoValues => {
+        return [...oldTodoValues, task]
+    })
+}
+```
+
+### Complete Code
+
+**App.jsx**
+
+```jsx
+import React, { useState } from "react";
+import "./App.css";
+
+function App() {
+     const [todos, setTodos] = useState(['jissmon', 'jomon'])
+     const [task, setTask] = useState('')
+     function addTodos(event) {
+        event.preventDefault()
+        setTask('')
+         setTodos(oldTodoValues => {
+             return [...oldTodoValues, task]
+         })
+     }
+  return (
+    <div className="App">
+        <h1>Todo App</h1>
+        <form onSubmit={addTodos}>
+            <input 
+                type="text" 
+                value={task} 
+                onChange={event => setTask(event.target.value)}    
+            />
+            <button
+                type='submit'
+                >
+                Create Todos
+            </button>
+        </form>
+        <ul>
+            {
+                todos.map((todo) => 
+                    {
+                        return (
+                            <li>{todo}</li>
+                        )
+                    }
+                )
+            }
+        </ul>
+    </div>
+  );
+}
+
+export default App;
+```
