@@ -281,7 +281,7 @@ export default App;
 
 ## 2. Running Function on Enter Key
 
-### Clear Input Field on Enter
+### 2.1 Clear Input Field on Enter
 
 - Append null or empty string to *setTask()* above the *setTodos()* state function.
 
@@ -295,7 +295,7 @@ function addTodos() {
         })
     }
 ```
-### Add todo on pressing Enter key on Input field.
+### 2.2 Add todo on pressing Enter key on Input field.
 
 Notes:
 
@@ -310,7 +310,7 @@ does not know what should happen when user clicks on input field.
   </button>
 ```
 
-### Page Reloads on clicking Enter key
+### 2.3 Page Reloads on clicking Enter key
 
 Because it is the default behavious of page. To resolve this,
 
@@ -344,7 +344,7 @@ function addTodos(event) {
 }
 ```
 
-### Complete Code
+### 2.4. Complete Code
 
 **App.jsx**
 
