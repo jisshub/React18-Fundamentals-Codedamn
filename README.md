@@ -16,6 +16,7 @@
 
 [Accordion Project SetUp](#accordion-project-setup)
 
+[React Quiz App](#react-quiz-app)
 # Conditional Rendering
 
 **App.jsx**
