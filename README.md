@@ -796,3 +796,35 @@ export function Book() {
 }
 ```
 
+## Routing Priority
+
+**App.jsx**
+
+```jsx
+<Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/books" element={<BookList />} />
+  <Route path="/books/:id" element={<Book />} />
+  <Route path="/books/new" element={<NewBook />} />
+</Routes>
+```
+If we have the URL /books/new which route would this match? Technically, we have two routes that match. Both /books/:id and /books/new will match since the dynamic route will just assume that new is the :id portion of the URL so React Router needs another way to determine which route to render.
+
+In older versions of React Router whichever route was defined first would be the one that is rendered so in our case the /books/:id route would be rendered which is obviously not what we want. Luckily, version 6 of React Router changed this so now React Router will use an algorithm to determine which route is most likely the one you want. In our case we obviously want to render the /books/new route so React Router will select that route for us. The actual way this algorithm works is very similar to CSS specificity since it will try to determine which route that matches our URL is the most specific (has the least amount of dynamic elements) and it will select that route.
+
+While we are on the topic of routing priority I also want to talk about how to create a route that matches anything.
+
+
+*App.jsx**
+
+```jsx
+<Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/books" element={<BookList />} />
+  <Route path="/books/:id" element={<Book />} />
+  <Route path="/books/new" element={<NewBook />} />
+  <Route path="*" element={<NotFound />} />
+</Routes>
+```
+
+A * will match anything at all which makes it perfect for things like a 404 page. A route that contains a * will also be less specific than anything else so you will never accidentally match a * route when another route would have also matched.
