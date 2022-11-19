@@ -846,3 +846,42 @@ A * will match anything at all which makes it perfect for things like a 404 page
 
 This nesting is pretty simple to do. All you need to do is make a parent Route that has the path prop set to the shared path for all your child Route components. Then inside the parent Route you can put all the child Route components. The only difference is that the path prop of the child Route components no longer includes the shared /books route. Also, the route for /books is replaced with a Route component that has no path prop, but instead has an index prop. All this is saying is that the path of the index Route is the same as the parent Route.
 
+## Shared Layouts
+
+Let's imagine that we want to render a nav section with links to each book as well the new book form from any of our book pages. To do this normally we would need to make a shared component to store this navigation and then import that into every single book related component. This is a bit of a pain, though, so React Router created its own solution to solve this problem. If you pass an element prop to a parent route it will render that component for every single child Route which means you can put a shared nav or other shared components on every child page with ease.
+
+**App.jsx**
+```jsx
+<Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/books" element={<BooksLayout />}>
+    <Route index element={<BookList />} />
+    <Route path=":id" element={<Book />} />
+    <Route path="new" element={<NewBook />} />
+  </Route>
+  <Route path="*" element={<NotFound />} />
+</Routes>
+```
+
+```jsx
+import { Link, Outlet } from "react-router-dom"
+
+export function BooksLayout() {
+  return (
+    <>
+      <nav>
+        <ul>
+          <li><Link to="/books/1">Book 1</Link></li>
+          <li><Link to="/books/2">Book 2</Link></li>
+          <li><Link to="/books/new">New Book</Link></li>
+        </ul>
+      </nav>
+
+      <Outlet />
+    </>
+  )
+}
+```
+
+The way our new code will work is whenever we match a route inside the /book parent Route it will render the BooksLayout component which contains our shared navigation. Then whichever child Route is matched will be rendered wherever the Outlet component is placed inside our layout component. The Outlet component is essentially a placeholder component that will render whatever our current page's content is. This structure is incredibly useful and makes sharing code between routes incredibly easy.
+
