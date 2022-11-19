@@ -771,6 +771,28 @@ if (import.meta.hot) {
 
 https://blog.webdevsimplified.com/2022-07/react-router/
 
+## Dynamic Routing
 
+**App.jsx**
 
+```jsx
+<Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/books" element={<BookList />} />
+  <Route path="/books/:id" element={<Book />} />
+</Routes>
+```
+
+**Book.jsx**
+```jsx
+import { useParams } from "react-router-dom"
+
+export function Book() {
+  const { id } = useParams()
+
+  return (
+    <h1>Book {id}</h1>
+  )
+}
+```
 
