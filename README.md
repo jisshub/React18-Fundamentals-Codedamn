@@ -18,7 +18,7 @@
 
 [React Quiz App](#react-quiz-app)
 
-[React Router Introduction](#react-routing-introduction)
+[React Router Introduction](#react-router-introduction)
 
 
 # Conditional Rendering
