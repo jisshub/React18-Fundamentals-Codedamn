@@ -891,21 +891,25 @@ The way our new code will work is whenever we match a route inside the /book par
 **App.jsx**
 
 ```jsx
-const [tours, setTours] = useState([])
-const [loading, setLoading] = useState(true)
 
-async function fetchTours() { 
-	const data = await fetch(url)
-	const jsonData = await data.json()
-	setTours(jsonData)
+const url = 'https://course-api.com/react-tours-project'
+
+function App() {
+	const [tours, setTours] = useState([])
+	const [loading, setLoading] = useState(true)
+
+	async function fetchTours() { 
+		const data = await fetch(url)
+		const jsonData = await data.json()
+		setTours(jsonData)
+	}
+
+	useEffect(() => {
+		fetchTours()
+	}, [])
+
+	return tours.map((tour) => {
+		return <h2>{tour.name}</h2>
+	})
 }
-
-useEffect(() => {
-	fetchTours()
-}, [])
-
-return tours.map((tour) => {
-	return <h2>{tour.name}</h2>
-})
-
 ```
