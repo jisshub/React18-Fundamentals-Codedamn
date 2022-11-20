@@ -888,6 +888,8 @@ The way our new code will work is whenever we match a route inside the /book par
 
 # Fetching Data Using useEffect
 
+## Example - 1
+
 **App.jsx**
 
 ```jsx
@@ -911,5 +913,37 @@ function App() {
 	return tours.map((tour) => {
 		return <h2>{tour.name}</h2>
 	})
+}
+```
+
+## Example  - 2
+
+**App.jsx**
+
+```jsx
+import * as React from 'react';
+import './style.css';
+
+export default function App() {
+  const url = 'https://course-api.com/javascript-store-products'
+  const [products, setProducts] = React.useState([])
+  
+  React.useEffect(() => {
+    fetchProducts()
+  }, [])
+  
+  async function fetchProducts() {
+    const response = await fetch(url)
+    const productsData = await response.json()
+    setProducts(productsData)
+  }
+  
+  return (
+    <div>
+      {products.map((product) => (
+        <h3>Compnay Name: {product.fields.company}</h3>
+      ))}
+    </div>
+  );
 }
 ```
