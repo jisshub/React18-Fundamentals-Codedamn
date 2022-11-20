@@ -20,6 +20,7 @@
 
 [React Router Introduction](#react-router-introduction)
 
+[Fetching Data Using useEffect](#fetching-data-using-useEffect)
 
 # Conditional Rendering
 
@@ -885,3 +886,26 @@ export function BooksLayout() {
 
 The way our new code will work is whenever we match a route inside the /book parent Route it will render the BooksLayout component which contains our shared navigation. Then whichever child Route is matched will be rendered wherever the Outlet component is placed inside our layout component. The Outlet component is essentially a placeholder component that will render whatever our current page's content is. This structure is incredibly useful and makes sharing code between routes incredibly easy.
 
+# Fetching Data Using useEffect
+
+**App.jsx**
+
+```jsx
+const [tours, setTours] = useState([])
+const [loading, setLoading] = useState(true)
+
+async function fetchTours() { 
+	const data = await fetch(url)
+	const jsonData = await data.json()
+	setTours(jsonData)
+}
+
+useEffect(() => {
+	fetchTours()
+}, [])
+
+return tours.map((tour) => {
+	return <h2>{tour.name}</h2>
+})
+
+```
